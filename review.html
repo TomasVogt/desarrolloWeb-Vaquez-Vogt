@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review — GameVault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink: #ef2d63;
+    --pink-hover: #ff3f74;
+    --bg-dark: #1f0d33;
+    --panel: #2b1245;
+    --card-bg: #e6e4e6;
+    --text-muted: rgba(255,255,255,0.65);
+    --star: #ffb238;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-dark);
+    color: #fff;
+  }
+
+  .page { max-width: 1400px; margin: 0 auto; }
+
+  /* ---------- NAV ---------- */
+  header.topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: linear-gradient(90deg, #b32a72 0%, #7a2b9e 60%, #4a1f7d 100%);
+    overflow: hidden;
+  }
+
+  header.topbar::after,
+  .banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+    opacity: 0.75;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .brand img { width: 44px; height: 44px; }
+
+  nav.links {
+    display: flex;
+    gap: 26px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  nav.links a { color: #fff; text-decoration: none; opacity: 0.9; }
+  nav.links a:hover { opacity: 1; }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.92);
+    border-radius: 6px;
+    padding: 8px 12px;
+    gap: 8px;
+    min-width: 180px;
+  }
+
+  .search-box input {
+    border: none; outline: none; background: transparent;
+    font-family: 'Poppins', sans-serif; font-size: 13px; color: #333; width: 100%;
+  }
+  .search-box input::placeholder { color: #8a8a8a; }
+  .search-box svg { opacity: 0.6; flex-shrink: 0; }
+
+  /* ---------- HERO BANNER ---------- */
+  .banner {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(31,13,51,0) 40%, rgba(31,13,51,1) 100%),
+      linear-gradient(110deg, #6a2fb0 0%, #b32a72 55%, #d9536f 100%);
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+  .content {
+    display: grid;
+    grid-template-columns: 200px 1fr 220px;
+    gap: 28px;
+    padding: 0 40px 60px;
+    margin-top: -70px;
+    position: relative;
+  }
+
+  .cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--card-bg);
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .platform-list {
+    margin-top: 16px;
+  }
+
+  .platform-list h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .platform-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 6px 0;
+    color: #fff;
+  }
+
+  .platform-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--pink);
+  }
+
+  .main-col { padding-top: 76px; }
+
+  .game-title {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .game-year {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .description {
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+    max-width: 65ch;
+  }
+
+  .popular-reviews {
+    margin-top: 36px;
+  }
+
+  .popular-reviews h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .review-card {
+    background: var(--panel);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .review-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .review-avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .review-user { font-size: 13px; font-weight: 500; }
+
+  .stars { color: var(--star); font-size: 12px; letter-spacing: 1px; }
+
+  .review-text {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar { padding-top: 76px; }
+
+  .side-panel {
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .side-panel h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .rating-average {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .rating-average .stars { font-size: 16px; }
+  .rating-average .score { font-size: 13px; color: var(--text-muted); }
+
+  .rating-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .bar-row span {
+    font-size: 10px;
+    color: var(--text-muted);
+    width: 10px;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: var(--pink);
+    border-radius: 3px;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--pink);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover { background: var(--pink-hover); }
+
+  @media (max-width: 900px) {
+    .content { grid-template-columns: 1fr; margin-top: 0; }
+    .main-col, .sidebar { padding-top: 20px; }
+    .cover { max-width: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <img src="gamevault_logo_transparent.png" alt="GV">
+      <span>GameVault</span>
+    </div>
+    <nav class="links">
+      <a href="homepage.html">Home</a>
+      <a href="#">Reviews</a>
+      <a href="vault.html">My Vault</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="search-box">
+      <input type="text" placeholder="Search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </div>
+  </header>
+
+  <div class="banner"></div>
+
+  <div class="content">
+    <div class="left-col">
+      <div class="cover"></div>
+      <div class="platform-list">
+        <h3>¿Dónde jugar?</h3>
+        <div class="platform-item"><span class="platform-dot"></span>PlayStation 5</div>
+        <div class="platform-item"><span class="platform-dot"></span>Xbox Series</div>
+      </div>
+    </div>
+
+    <div class="main-col">
+      <h1 class="game-title">Grand Theft Auto VI</h1>
+      <p class="game-year">2026</p>
+      <p class="description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti.
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
+        Nulla facilisi. Integer euismod, nunc at porttitor commodo, sapien orci hendrerit lorem,
+        vitae dictum sem nulla nec risus. Praesent semper convallis odio, sed cursus lectus
+        aliquam eget. Curabitur non arcu vel augue lacinia dapibus.
+      </p>
+
+      <div class="popular-reviews">
+        <h2>Popular Reviews</h2>
+        <div class="review-card">
+          <div class="review-head">
+            <div class="review-avatar"></div>
+            <span class="review-user">User</span>
+            <span class="stars">★★★★★</span>
+          </div>
+          <p class="review-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod,
+            nunc nec ultricies lacinia, nisl nisi aliquam nunc, eget aliquam nunc nisl eget nunc.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="side-panel">
+        <h3>Ratings</h3>
+        <div class="rating-average">
+          <span class="stars">★★★★☆</span>
+          <span class="score">4.5</span>
+        </div>
+        <p class="rating-count">2,410 ratings</p>
+
+        <div class="bar-row"><span>5</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></div>
+        <div class="bar-row"><span>4</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div></div>
+        <div class="bar-row"><span>3</span><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div></div>
+        <div class="bar-row"><span>2</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div></div>
+        <div class="bar-row"><span>1</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div></div>
+      </div>
+
+      <div class="side-panel">
+        <h3>My Vault</h3>
+        <a href="vault.html" class="btn-primary">Añadir a mi Vault</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

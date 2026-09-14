@@ -1,0 +1,63 @@
+/* =========================================================
+   Homepage — depende de css/base.css
+   ========================================================= */
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 48px var(--space-page-x) 40px;
+}
+
+.hero-content {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.hero-text .logo {
+  font-size: 78px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.hero-text .tagline {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: 400;
+  opacity: 0.95;
+}
+
+.cta-row { margin-top: 22px; }
+
+/* ---------- Sección Trending ---------- */
+.trending {
+  background: var(--color-surface);
+  padding: 32px var(--space-page-x) 60px;
+}
+
+.trending-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+
+.trending-header h2 { font-size: 15px; font-weight: 600; }
+
+.trending-header a {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.trending-header a:hover { color: var(--text-white); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero-content { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .hero-text .logo { font-size: 44px; }
+}

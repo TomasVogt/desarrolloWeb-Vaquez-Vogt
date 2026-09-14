@@ -1,0 +1,137 @@
+/* =========================================================
+   Review — depende de css/base.css
+   ========================================================= */
+
+/* ---------- Banner ---------- */
+.banner {
+  /*
+    En producción este layer va a ser la carátula/arte del juego
+    que devuelva RAWG para este id (no un patrón genérico), así
+    que acá conviene setear --hero-image por JS por juego:
+    banner.style.setProperty('--hero-image', 'url(' + game.background_image + ')')
+  */
+  --hero-image: var(--hero-image-default);
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background-image:
+    linear-gradient(180deg, rgba(31, 13, 51, 0) 40%, rgba(31, 13, 51, 1) 100%),
+    var(--hero-image),
+    linear-gradient(110deg, #6a2fb0 0%, #b32a72 55%, #d9536f 100%);
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-size: cover, 300px 300px, cover;
+  background-blend-mode: normal, normal, normal;
+  background-position: center;
+}
+
+/* ---------- Layout principal ---------- */
+.content {
+  display: grid;
+  grid-template-columns: 200px 1fr 220px;
+  gap: 28px;
+  padding: 0 var(--space-page-x) 60px;
+  margin-top: -70px;
+  position: relative;
+}
+
+.cover {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--color-cover);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.platform-list { margin-top: 16px; }
+
+.platform-list h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.platform-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 6px 0;
+}
+
+.platform-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-pink); }
+
+.main-col { padding-top: 76px; }
+
+.game-title { font-size: 26px; font-weight: 700; }
+
+.game-year { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+.description {
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 65ch;
+}
+
+.popular-reviews { margin-top: 36px; }
+
+.popular-reviews h2 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+
+.review-card {
+  background: var(--color-surface);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.review-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.review-avatar { width: 26px; height: 26px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); }
+
+.review-user { font-size: 13px; font-weight: 500; }
+
+.review-text { font-size: 12.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); }
+
+/* ---------- Sidebar ---------- */
+.sidebar { padding-top: 76px; }
+
+.side-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.side-panel h3 { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 12px; }
+
+.rating-average { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.rating-average .stars { font-size: 16px; }
+.rating-average .score { font-size: 13px; color: var(--text-muted); }
+
+.rating-count { font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
+
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.bar-row span { font-size: 10px; color: var(--text-muted); width: 10px; }
+
+.bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar-fill { height: 100%; background: var(--color-pink); border-radius: 3px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .content { grid-template-columns: 1fr; margin-top: 0; }
+  .main-col, .sidebar { padding-top: 20px; }
+  .cover { max-width: 160px; }
+}

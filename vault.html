@@ -6,180 +6,51 @@
 <title>My Vault — GameVault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --pink: #ef2d63;
-    --pink-hover: #ff3f74;
-    --bg-dark: #1f0d33;
-    --card-bg: #e6e4e6;
-    --text-muted: rgba(255,255,255,0.65);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    position: relative;
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    color: #fff;
-    background:
-      linear-gradient(90deg, rgba(180,42,110,0.9) 0%, rgba(31,13,51,0) 18%, rgba(31,13,51,0) 82%, rgba(90,31,150,0.9) 100%),
-      var(--bg-dark);
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    mix-blend-mode: overlay;
-    opacity: 0.6;
-  }
-
-  .page { max-width: 1400px; margin: 0 auto; }
-
-  header.topbar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 40px;
-    background: linear-gradient(90deg, #c22d78 0%, #8a2aa3 55%, #4a1f7d 100%);
-    overflow: hidden;
-  }
-
-  header.topbar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    mix-blend-mode: overlay;
-    opacity: 0.75;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .brand img { width: 48px; height: 48px; }
-
-  nav.links {
-    display: flex;
-    gap: 26px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  nav.links a { color: #fff; text-decoration: none; opacity: 0.9; }
-  nav.links a:hover { opacity: 1; }
-
-  .nav-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
-
-  .topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  main {
-    padding: 32px 40px 60px;
-  }
-
-  .vault-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 22px;
-  }
-
-  .btn-primary {
-    background: var(--pink);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 9px 18px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  .btn-primary:hover { background: var(--pink-hover); }
-
-  .vault-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px 24px;
-  }
-
-  .vault-item .title-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .vault-item .cover {
-    aspect-ratio: 3/4;
-    background: var(--card-bg);
-    border-radius: 4px;
-  }
-
-  @media (max-width: 900px) {
-    .vault-grid { grid-template-columns: repeat(2, 1fr); }
-    nav.links { display: none; }
-  }
-</style>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/vault.css">
 </head>
-<body>
+<body class="noise-fixed">
 
 <div class="page">
-  <header class="topbar">
-    <div class="brand">
+  <header class="topbar noise">
+    <a href="homepage.html" class="brand">
       <img src="gamevault_logo_transparent.png" alt="GV">
-      <span>My Vault</span>
-    </div>
+      <span>GameVault</span>
+    </a>
+    <nav class="links">
+      <a href="homepage.html">Home</a>
+      <a href="review.html">Reviews</a>
+      <a href="vault.html">My Vault</a>
+      <a href="#">Games</a>
+      <a href="#">About</a>
+    </nav>
     <div class="topbar-right">
-      <nav class="links">
-        <a href="homepage.html">Home</a>
-        <a href="review.html">Reviews</a>
-        <a href="#">Games</a>
-        <a href="#">About</a>
-      </nav>
-      <div class="nav-avatar">👤</div>
+      <div class="search-box search-box--compact">
+        <input type="text" placeholder="Search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <a href="login.html" class="nav-avatar">👤</a>
     </div>
   </header>
 
   <main>
     <div class="vault-header">
+      <h1 class="vault-title">My Vault</h1>
       <a href="#" class="btn-primary">Add Game</a>
     </div>
 
-    <div class="vault-grid">
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
+    <div class="card-grid card-grid--4">
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
+      <div class="vault-item"><p class="title-label">Title</p><div class="game-cover"></div></div>
     </div>
   </main>
 </div>

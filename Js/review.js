@@ -20,7 +20,7 @@ async function loadGameDetails() {
         document.getElementById('game-description').innerHTML = '<p>Por favor, vuelve a la página principal y selecciona un juego válido.</p>';
         return;
     }
-
+    loadGameReviews(gameId);
     const url = `https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`;
 
     console.log("ID detectado:", gameId);
@@ -83,6 +83,70 @@ console.log("URL final:", url);
         console.error('Error:', error);
         document.getElementById('game-title').textContent = 'Error de conexión';
         document.getElementById('game-description').innerHTML = '<p>No se pudo conectar con la base de datos de videojuegos.</p>';
+    }
+}
+
+/**
+ * Función adicional para cargar reseñas comunitarias desde RAWG
+ */
+async function loadGameReviews(gameId) {
+    // RAWG expone las reseñas de los usuarios en este endpoint
+    const url = `https://api.rawg.io/api/games/${gameId}/reviews?key=${API_KEY}`;
+    const reviewsContainer = document.querySelector('.popular-reviews');
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Error obteniendo reseñas');
+        
+        const data = await response.json();
+        const reviews = data.results;
+
+        if (reviews && reviews.length > 0) {
+            // Limpiamos el título y el contenido "en desarrollo"
+            reviewsContainer.innerHTML = '<h2>Popular Reviews</h2>';
+
+            // Tomamos las primeras 3 reseñas para no sobrecargar la página
+            const topReviews = reviews.slice(0, 3);
+
+            topReviews.forEach(review => {
+                // Si el usuario no tiene avatar, usamos un placeholder genérico
+                const avatar = review.user.avatar || 'assets/default-avatar.png';
+                
+                // Creamos la estructura HTML de la reseña
+                const reviewHTML = `
+                    <div class="review-card" style="margin-bottom: 15px;">
+                        <div class="review-head">
+                            <!-- Como no podemos cargar imágenes externas sin problemas a veces, usamos un div coloreado como fallback visual -->
+                            <div class="review-avatar" style="background-image: url('${avatar}'); background-size: cover;"></div>
+                            <span class="review-user">${review.user.username}</span>
+                            <span class="stars" style="color: var(--color-star);">
+                                ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                            </span>
+                        </div>
+                        <p class="review-text">${review.text}</p>
+                    </div>
+                `;
+                reviewsContainer.innerHTML += reviewHTML;
+            });
+        } else {
+            // Si el juego no tiene reseñas en la API
+            reviewsContainer.innerHTML = `
+                <h2>Popular Reviews</h2>
+                <div class="review-card">
+                    <p class="review-text" style="text-align: center;">Aún no hay reseñas comunitarias para este juego.</p>
+                </div>
+            `;
+        }
+
+    } catch (error) {
+        console.error('Error cargando las reseñas:', error);
+        // Fallback en caso de error
+        reviewsContainer.innerHTML = `
+            <h2>Popular Reviews</h2>
+            <div class="review-card">
+                <p class="review-text" style="color: rgba(255,100,100,0.8);">No se pudieron cargar las reseñas en este momento.</p>
+            </div>
+        `;
     }
 }
 

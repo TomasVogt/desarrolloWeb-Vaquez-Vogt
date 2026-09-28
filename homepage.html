@@ -6,266 +6,96 @@
 <title>GameVault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-dark: #2b1240;
-    --bg-darker: #1f0d33;
-    --pink: #ef2d63;
-    --pink-light: #ff6f91;
-    --purple: #6a2fb0;
-    --text-white: #ffffff;
-    --text-muted: rgba(255,255,255,0.75);
-    --card-bg: #e6e4e6;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--bg-darker);
-    color: var(--text-white);
-  }
-
-  .page {
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 4px;
-  }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    position: relative;
-    padding: 24px 40px 40px;
-    background:
-      linear-gradient(120deg, rgba(40,15,60,0.55) 0%, rgba(60,10,40,0.35) 45%, rgba(30,10,55,0.85) 100%),
-      linear-gradient(100deg, #d92b6e 0%, #9a2f8f 35%, #5a2199 70%, #2b1245 100%);
-    background-blend-mode: multiply, normal;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(30,12,50,0.15), rgba(20,8,40,0.9) 92%),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 2px, transparent 2px 220px);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    mix-blend-mode: overlay;
-    opacity: 0.75;
-  }
-
-  nav {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 28px;
-    padding-bottom: 56px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-white);
-  }
-
-  nav a {
-    color: inherit;
-    text-decoration: none;
-    opacity: 0.9;
-  }
-
-  nav a:hover { opacity: 1; }
-
-  .nav-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 32px;
-  }
-
-  .hero-text .logo {
-    font-size: 78px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1;
-  }
-
-  .hero-text .tagline {
-    margin-top: 10px;
-    font-size: 17px;
-    font-weight: 400;
-    color: var(--text-white);
-    opacity: 0.95;
-  }
-
-  .search-box {
-    display: flex;
-    align-items: center;
-    background: rgba(255,255,255,0.92);
-    border-radius: 6px;
-    padding: 10px 14px;
-    min-width: 220px;
-    gap: 8px;
-  }
-
-  .search-box input {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    color: #333;
-    width: 100%;
-  }
-
-  .search-box input::placeholder { color: #8a8a8a; }
-
-  .search-box svg { flex-shrink: 0; opacity: 0.6; }
-
-  .cta-row {
-    position: relative;
-    z-index: 2;
-    margin-top: 22px;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    background: var(--pink);
-    color: var(--text-white);
-    font-weight: 500;
-    font-size: 14px;
-    padding: 10px 22px;
-    border-radius: 6px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .btn-primary:hover { background: #ff3f74; }
-
-  /* ---------- TRENDING SECTION ---------- */
-  .trending {
-    background: var(--bg-dark);
-    padding: 32px 40px 60px;
-  }
-
-  .trending-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 18px;
-  }
-
-  .trending-header h2 {
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  .trending-header a {
-    font-size: 13px;
-    color: var(--text-muted);
-    text-decoration: none;
-  }
-
-  .trending-header a:hover { color: var(--text-white); }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-  }
-
-  .game-card {
-    aspect-ratio: 3 / 4.2;
-    background: var(--card-bg);
-    border-radius: 4px;
-  }
-
-  @media (max-width: 900px) {
-    .card-grid { grid-template-columns: repeat(3, 1fr); }
-    .hero-content { flex-direction: column; align-items: flex-start; }
-    .search-box { width: 100%; }
-  }
-
-  @media (max-width: 560px) {
-    .hero, .trending { padding-left: 20px; padding-right: 20px; }
-    nav { flex-wrap: wrap; gap: 14px; justify-content: flex-start; }
-    .card-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-text .logo { font-size: 44px; }
-  }
-</style>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/homepage.css">
 </head>
 <body>
 
 <div class="page">
-  <header class="hero">
-    <nav>
-      <a href="vault.html">My Vault</a>
+  <!-- Topbar: misma estructura, mismo orden de botones en las 4 páginas -->
+  <header class="topbar noise">
+    <a href="homepage.html" class="brand">
+      <img src="gamevault_logo_transparent.png" alt="GV">
+      <span>GameVault</span>
+    </a>
+    <nav class="links">
+      <a href="homepage.html">Home</a>
       <a href="review.html">Reviews</a>
+      <a href="vault.html">My Vault</a>
       <a href="#">Games</a>
       <a href="#">About</a>
-      <a href="login.html">Login</a>
-      <span class="nav-avatar">👤</span>
     </nav>
+    <div class="topbar-right">
+      <div class="search-box search-box--compact">
+        <input type="text" placeholder="Search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <a href="login.html" class="nav-avatar">👤</a>
+    </div>
+  </header>
 
+  <section class="hero hero-backdrop noise">
     <div class="hero-content">
       <div class="hero-text">
         <div class="logo">GameVault</div>
         <p class="tagline">Collect, rate, discover — powered by AI</p>
-      </div>
-
-      <div class="search-box">
-        <input type="text" placeholder="Search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="7"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
       </div>
     </div>
 
     <div class="cta-row">
       <a href="login.html" class="btn-primary">Create Account</a>
     </div>
-  </header>
+  </section>
+  
+<!-- CATEGORÍAS DE JUEGOS -->
 
-  <section class="trending">
-    <div class="trending-header">
-      <h2>Trending Now</h2>
+  <!-- Trending Games -->
+  <section class="game-category">
+    <div class="category-header">
+      <h2>Trending Games</h2>
       <a href="#">See more</a>
     </div>
-    <div class="card-grid">
-      <div class="game-card"></div>
-      <div class="game-card"></div>
-      <div class="game-card"></div>
-      <div class="game-card"></div>
-      <div class="game-card"></div>
+    <div class="card-grid" id="trending-grid">
+      <!-- El JS inyectará 15 tarjetas aquí -->
+    </div>
+  </section>
+
+  <!-- New Releases -->
+  <section class="game-category">
+    <div class="category-header">
+      <h2>New Releases</h2>
+      <a href="#">See more</a>
+    </div>
+    <div class="card-grid" id="new-releases-grid">
+      <!-- El JS inyectará 15 tarjetas aquí -->
+    </div>
+  </section>
+
+  <!-- PlayStation Exclusives -->
+  <section class="game-category">
+    <div class="category-header">
+      <h2>PlayStation Exclusives</h2>
+      <a href="#">See more</a>
+    </div>
+    <div class="card-grid" id="playstation-grid">
+      <!-- El JS inyectará 15 tarjetas aquí -->
+    </div>
+  </section>
+
+  <!-- Xbox Exclusives -->
+  <section class="game-category">
+    <div class="category-header">
+      <h2>Xbox Exclusives</h2>
+      <a href="#">See more</a>
+    </div>
+    <div class="card-grid" id="xbox-grid">
+      <!-- El JS inyectará 15 tarjetas aquí -->
     </div>
   </section>
 </div>
-
+<script src="js/api.js"></script>
 </body>
 </html>

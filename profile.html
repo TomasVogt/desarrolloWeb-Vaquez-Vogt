@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Vault — GameVault</title>
+<title>Mi perfil — GameVault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/gamevault_logo_transparente.ico" type="image/x-icon">
 <link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/vault.css">
+<link rel="stylesheet" href="css/profile.css">
 </head>
 <body data-require-auth="true">
 
@@ -17,9 +17,9 @@
       <img src="gamevault_logo_transparent.png" alt="GV">
       <span>GameVault</span>
     </a>
-    
+
     <div class="topbar-right">
-      
+
       <nav class="links">
         <a href="homepage.html">Home</a>
         <a href="vault.html">My Vault</a>
@@ -33,7 +33,7 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </div>
-      
+
       <div class="user-menu" id="userMenu">
         <button type="button" class="nav-avatar" id="userMenuBtn"
                 aria-haspopup="true" aria-expanded="false" aria-label="Menú de usuario">👤︎</button>
@@ -46,24 +46,51 @@
     </div>
   </header>
 
-  <main>
-    <div class="vault-header">
-      <h1 class="vault-title">My Vault</h1>
-      <a href="homepage.html" class="btn-primary">Add Game</a>
-    </div>
+  <main class="profile">
 
-    <!-- Se añadió el ID vaultGrid y se eliminaron los ítems estáticos -->
-    <div class="vault-grid" id="vaultGrid">
-      <p style="color: var(--text-muted); grid-column: 1 / -1;">Cargando tu colección...</p>
-    </div>
+    <!-- Cabecera: foto, nombre, mail y contadores -->
+    <section class="profile-header">
+      <div class="profile-avatar" id="profileAvatar" aria-hidden="true"></div>
+      <div class="profile-info">
+        <h1 class="profile-name" id="profileName">Cargando...</h1>
+        <p class="profile-email" id="profileEmail"></p>
+        <div class="profile-stats">
+          <div class="stat"><span class="stat-num" id="statGames">0</span><span class="stat-label">juegos en la Vault</span></div>
+          <div class="stat"><span class="stat-num" id="statReviews">0</span><span class="stat-label">reseñas</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expositor de juegos destacados -->
+    <section class="profile-section">
+      <div class="section-head">
+        <h2>Juegos destacados</h2>
+        <button type="button" class="btn-ghost" id="editFeaturedBtn">Editar destacados</button>
+      </div>
+
+      <div class="showcase" id="showcase"></div>
+
+      <div class="picker is-hidden" id="featuredPicker">
+        <p class="picker-hint">Tocá un juego para destacarlo o quitarlo (máximo 4).</p>
+        <div class="picker-grid" id="pickerGrid"></div>
+      </div>
+    </section>
+
+    <!-- Reseñas del usuario -->
+    <section class="profile-section">
+      <div class="section-head">
+        <h2>Mis reseñas</h2>
+      </div>
+      <div id="myReviews"></div>
+    </section>
+
   </main>
 
 <script src="js/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
-<!-- Se añadió la importación del script de la vault -->
-<script src="js/vault.js"></script>
+<script src="js/profile.js"></script>
 <script src="js/search.js"></script>
 </body>
 </html>

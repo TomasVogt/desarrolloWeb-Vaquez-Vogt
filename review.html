@@ -19,9 +19,7 @@
     </a>
     <nav class="links">
       <a href="homepage.html">Home</a>
-      <a href="review.html">Reviews</a>
       <a href="vault.html">My Vault</a>
-      <a href="#">Games</a>
       <a href="#">About</a>
     </nav>
     <div class="topbar-right">
@@ -32,7 +30,14 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </div>
-      <a href="login.html" class="nav-avatar">👤</a>
+      <div class="user-menu" id="userMenu">
+        <button type="button" class="nav-avatar" id="userMenuBtn"
+                aria-haspopup="true" aria-expanded="false" aria-label="Menú de usuario">👤</button>
+        <div class="user-dropdown" role="menu">
+          <a href="#" role="menuitem" id="profileLink">Mi perfil</a>
+          <a href="#" role="menuitem" id="logoutBtn">Logout</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -102,6 +107,10 @@
 </div>
 
 <!-- Conectamos el script específico para la página de reviews -->
+<script src="js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/review.js"></script>
 </body>
 </html>

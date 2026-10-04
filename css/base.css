@@ -68,7 +68,7 @@ a { color: inherit; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  opacity: 0.5;
+  opacity: var(--noise-opacity, 0.5); /* subí/bajá este valor para ajustar el grano */
 }
 
 .noise-fixed::after { position: fixed; }
@@ -103,8 +103,13 @@ header.topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px var(--space-page-x);
+  padding: 10px var(--space-page-x);
   background: linear-gradient(90deg, var(--color-topbar-start) 0%, var(--color-topbar-mid) 55%, var(--color-topbar-end) 100%);
+  /* overflow visible + z-index: para que el menú del avatar no se corte
+     (.noise pone overflow:hidden) y quede por encima del contenido */
+  position: relative;
+  z-index: 50;
+  overflow: visible;
 }
 
 .brand {
@@ -147,6 +152,39 @@ nav.links a:hover { opacity: 1; }
   text-decoration: none;
   flex-shrink: 0;
 }
+
+/* ---------- Menú de usuario (avatar) ---------- */
+.user-menu { position: relative; z-index: 1; }
+
+button.nav-avatar { border: none; color: inherit; cursor: pointer; font-family: inherit; }
+
+.user-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 160px;
+  padding: 6px;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.user-menu.open .user-dropdown { display: block; }
+
+.user-dropdown a {
+  display: block;
+  padding: 10px 12px;
+  font-size: 13px;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.user-dropdown a:hover { background: rgba(255, 255, 255, 0.08); }
+
+/* Páginas que exigen sesión: se ocultan hasta que auth.js confirma la sesión */
+body[data-require-auth] { visibility: hidden; }
 
 /* ---------- Search box ---------- */
 .search-box {

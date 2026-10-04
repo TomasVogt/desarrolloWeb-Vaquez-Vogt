@@ -23,8 +23,6 @@ async function loadGameDetails() {
     loadGameReviews(gameId);
     const url = `https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`;
 
-    console.log("ID detectado:", gameId);
-console.log("URL final:", url);
 
     try {
         const response = await fetch(url);

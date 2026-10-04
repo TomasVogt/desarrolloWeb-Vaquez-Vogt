@@ -3,13 +3,12 @@
    ========================================================= */
 
 body {
-  --hero-image: var(--hero-image-default);
+  --hero-image: url('../assets/Pc_games_image.jpeg');
   background-color: var(--color-bg);
   background-image:
-    linear-gradient(90deg, rgba(180, 42, 110, 0.9) 0%, rgba(31, 13, 51, 0) 18%, rgba(31, 13, 51, 0) 82%, rgba(90, 31, 150, 0.9) 100%),
+    linear-gradient(180deg, rgba(180, 42, 110, 0.9) 0%, rgba(31, 13, 51, 0) 18%, rgba(31, 13, 51, 0) 82%, rgba(90, 31, 150, 0.9) 100%),
     var(--hero-image);
   background-repeat: no-repeat, repeat;
-  background-size: cover, 300px 300px;
   background-position: center;
   background-attachment: fixed;
 }
@@ -32,4 +31,20 @@ main { padding: 32px var(--space-page-x) 60px; }
   font-size: 12px;
   color: var(--text-muted);
   margin-bottom: 8px;
+}
+
+.vault-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 24px;
+}
+
+.vault-item .cover {
+  aspect-ratio: 3 / 4;
+  background: var(--color-cover);
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .vault-grid { grid-template-columns: repeat(2, 1fr); }
 }

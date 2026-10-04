@@ -1,7 +1,7 @@
 // js/auth.js
 // Helpers compartidos. Se usan así en cualquier página:
 //   <body data-require-auth>   -> exige sesión; si no hay, manda a login.html
-//   <a id="navAuthLink" ...>   -> se convierte en "Login" o "Logout" según la sesión
+//   #userMenu (topbar)         -> avatar con menú: Mi perfil / Logout (sin sesión, lleva al login)
 // Requiere cargar antes: config.js, CDN de supabase-js y supabase-client.js.
 
 async function gvGetSession() {
@@ -22,6 +22,42 @@ function gvSafeNext(value) {
   return /^[\w-]+\.html$/i.test(value || '') ? value : null;
 }
 
+function gvInitUserMenu(session) {
+  const menu = document.getElementById('userMenu');
+  if (!menu) return;
+  const btn = document.getElementById('userMenuBtn');
+
+  btn.addEventListener('click', (e) => {
+    // Sin sesión, el avatar lleva al login
+    if (!session) {
+      window.location.href = 'login.html';
+      return;
+    }
+    e.stopPropagation();
+    const open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+
+  // Cerrar al clickear afuera o con Escape
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    gvSignOut();
+  });
+}
+
 async function gvInitPage() {
   const session = await gvGetSession();
 
@@ -34,20 +70,7 @@ async function gvInitPage() {
     document.body.style.visibility = 'visible';
   }
 
-  const link = document.getElementById('navAuthLink');
-  if (link) {
-    if (session) {
-      link.textContent = 'Logout';
-      link.setAttribute('href', '#');
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        gvSignOut();
-      });
-    } else {
-      link.textContent = 'Login';
-      link.setAttribute('href', 'login.html');
-    }
-  }
+  gvInitUserMenu(session);
 }
 
 document.addEventListener('DOMContentLoaded', gvInitPage);

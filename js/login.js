@@ -151,10 +151,10 @@
 
   // ---------- Navegación post-login ----------
   function redirectAfterAuth() {
-    const params = new URLSearchParams(window.location.search);
-    const next = gvSafeNext(params.get('next'));
-    window.location.replace(next || 'vault.html');
-  }
+  const params = new URLSearchParams(window.location.search);
+  const next = gvSafeNext(params.get('next'));
+  window.location.replace(next || 'homepage.html');
+}
 
   // ---------- Acciones ----------
   async function handleSubmit(event) {

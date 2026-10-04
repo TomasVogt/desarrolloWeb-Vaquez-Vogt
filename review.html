@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Cargando... — GameVault</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/review.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Cargando... — GameVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/gamevault_logo_transparente.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/review.css">
 </head>
+
 <body>
 
-<div class="page">
   <header class="topbar noise">
     <a href="homepage.html" class="brand">
       <img src="gamevault_logo_transparent.png" alt="GV">
       <span>GameVault</span>
     </a>
-    <nav class="links">
-      <a href="homepage.html">Home</a>
-      <a href="vault.html">My Vault</a>
-      <a href="#">About</a>
-    </nav>
+
+    <!-- Todo lo que va a la derecha se agrupa aquí -->
     <div class="topbar-right">
+
+      <nav class="links">
+        <a href="homepage.html">Home</a>
+        <a href="vault.html">My Vault</a>
+        <a href="#">About</a>
+      </nav>
+
+      <!-- La barra de búsqueda se mantiene aquí, usando la variante compacta -->
       <div class="search-box search-box--compact">
         <input type="text" placeholder="Search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -30,31 +37,34 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </div>
+
       <div class="user-menu" id="userMenu">
-        <button type="button" class="nav-avatar" id="userMenuBtn"
-                aria-haspopup="true" aria-expanded="false" aria-label="Menú de usuario">👤</button>
+        <button type="button" class="nav-avatar" id="userMenuBtn" aria-haspopup="true" aria-expanded="false"
+          aria-label="Menú de usuario">👤︎</button>
         <div class="user-dropdown" role="menu">
           <a href="#" role="menuitem" id="profileLink">Mi perfil</a>
           <a href="#" role="menuitem" id="logoutBtn">Logout</a>
         </div>
       </div>
+
     </div>
   </header>
 
-<!-- Banner para la imagen principal (background_image de RAWG) -->
+  <!-- Banner para la imagen principal (background_image de RAWG) -->
   <div class="banner noise" id="game-banner"></div>
 
   <div class="content">
     <div class="left-col">
       <!-- Carátula (usaremos una imagen adicional si existe, o la misma principal) -->
       <div class="cover" id="game-cover"></div>
-      
+
       <div class="platform-list">
         <h3>¿Dónde jugar?</h3>
         <!-- Las plataformas se inyectarán aquí -->
         <div id="game-platforms"></div>
       </div>
     </div>
+    
 
     <div class="main-col">
       <h1 class="game-title" id="game-title">Cargando...</h1>
@@ -66,51 +76,80 @@
 
       <div class="popular-reviews">
         <h2>Popular Reviews</h2>
-        <!-- Las reviews requerirían otro endpoint, por ahora dejamos el diseño base -->
-        <div class="review-card">
-          <div class="review-head">
-            <div class="review-avatar"></div>
-            <span class="review-user">User</span>
-            <span class="stars">★★★★★</span>
-          </div>
-          <p class="review-text">
-            (Sistema de comentarios en desarrollo)
-          </p>
+
+        <div class="review-card" id="reviewFormContainer" style="margin-bottom: 25px; display: none;">
+          <h3>Escribe tu reseña</h3>
+          <form id="submitReviewForm">
+            <div style="margin-bottom: 10px;">
+              <label for="reviewRating">Calificación (1 al 5 estrellas)</label>
+              <select id="reviewRating" class="field">
+                <option value="5">★★★★★ (5)</option>
+                <option value="4">★★★★☆ (4)</option>
+                <option value="3">★★★☆☆ (3)</option>
+                <option value="2">★★☆☆☆ (2)</option>
+                <option value="1">★☆☆☆☆ (1)</option>
+              </select>
+            </div>
+            <div style="margin-bottom: 12px;">
+              <textarea id="reviewComment" class="field" placeholder="¿Qué te pareció el juego?" rows="3" required
+                maxlength="2000"></textarea>
+            </div>
+            <button type="submit" class="btn-primary" id="sendReviewBtn">Publicar reseña</button>
+          </form>
         </div>
+
+        <!-- Acá se renderizan las reseñas -->
+        <div id="reviewsList"></div>
       </div>
     </div>
 
     <div class="sidebar">
       <div class="side-panel">
-        <h3>Ratings RAWG</h3>
+        <h3>Ratings</h3>
+
         <div class="rating-average">
-          <!-- Representación visual simple de estrellas -->
-          <span class="stars" id="game-stars">★★★★☆</span>
+          <span class="stars" id="game-stars">★★★★★</span>
           <span class="score" id="game-rating">0.0</span>
         </div>
-        <p class="rating-count" id="game-rating-count">0 ratings</p>
-        
-        <!-- Las barras de progreso por ahora son visuales -->
-        <div class="bar-row"><span>5</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></div>
-        <div class="bar-row"><span>4</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div></div>
-        <div class="bar-row"><span>3</span><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div></div>
-        <div class="bar-row"><span>2</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div></div>
-        <div class="bar-row"><span>1</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div></div>
-      </div>
+        <div class="rating-count" id="game-rating-count">0 ratings</div>
 
-      <div class="side-panel">
-        <h3>My Vault</h3>
-        <a href="vault.html" class="btn-primary">Añadir a mi Vault</a>
+        <div class="bar-row"><span>5</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-5" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="bar-row"><span>4</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-4" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="bar-row"><span>3</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-3" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="bar-row"><span>2</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-2" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="bar-row"><span>1</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-1" style="width: 0%;"></div>
+          </div>
+        </div>
       </div>
+      <button type="button" class="btn-primary btn-vault" id="btn-add-vault">Add to Vault</button>
     </div>
   </div>
-</div>
 
-<!-- Conectamos el script específico para la página de reviews -->
-<script src="js/config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/review.js"></script>
+  <!-- Conectamos el script específico para la página de reviews -->
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/review.js"></script>
+  <script src="js/search.js"></script>
 </body>
+
 </html>

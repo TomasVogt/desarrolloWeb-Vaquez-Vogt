@@ -161,3 +161,71 @@
   .description { text-align: left; }
   .sidebar { flex-direction: column; gap: 15px; }
 }
+
+/* =========================================
+   Estilos para el Formulario y Reseñas de la Comunidad
+   ========================================= */
+
+#reviewFormContainer {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+#reviewFormContainer h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 14px;
+}
+
+#reviewFormContainer label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Campos de entrada personalizados adaptados a la paleta */
+#reviewFormContainer .field,
+#reviewFormContainer select,
+#reviewFormContainer textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: var(--font-base);
+  font-size: 13.5px;
+  color: var(--text-white);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#reviewFormContainer select option {
+  background: var(--color-surface);
+  color: var(--text-white);
+}
+
+#reviewFormContainer textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+#reviewFormContainer .field:focus,
+#reviewFormContainer select:focus,
+#reviewFormContainer textarea:focus {
+  border-color: var(--color-pink);
+  box-shadow: 0 0 0 2px rgba(239, 45, 99, 0.25);
+}
+
+/* Botón de envío específico para la reseña */
+#sendReviewBtn {
+  margin-top: 4px;
+  width: 100%;
+  padding: 12px;
+  font-weight: 600;
+}

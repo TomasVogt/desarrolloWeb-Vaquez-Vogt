@@ -2,17 +2,11 @@
    Homepage — depende de css/base.css
    ========================================================= */
 
-/* ---------- Hero con foto real ----------
-   base.css arma el fondo en 3 capas: [degradé de color, --hero-image, degradé de respaldo].
-   El patrón por defecto se repite (300px); una foto tiene que ir "cover" y sin repetir. */
 .hero-backdrop.hero-photo {
-  /* Ruta relativa a ESTE css (carpeta css/), por eso sube un nivel hasta assets/ */
+  
   --hero-image: url('../assets/Ps_games_image.jpeg');
 
-  /* Capas de arriba hacia abajo:
-     1) color: degradé rosa -> violeta -> azul oscuro (subí/bajá el último número de cada rgba)
-     2) oscurecido: para que el texto blanco se lea
-     3) la foto */
+  
   background-image:
     linear-gradient(100deg, rgba(217, 43, 110, 0.4) 0%, rgba(154, 47, 143, 0.35) 35%, rgba(90, 33, 153, 0.45) 70%, rgba(43, 18, 69, 0.7) 100%),
     linear-gradient(to bottom, rgba(31, 13, 51, 0.1), rgba(31, 13, 51, 0.5)),
@@ -33,7 +27,7 @@
 
 /* ---------- Hero ---------- */
 .hero {
-  padding: 80px var(--space-page-x) 40px;
+  padding: 130px var(--space-page-x) 40px;
 }
 
 .hero-content {
@@ -57,27 +51,33 @@
   opacity: 0.95;
 }
 
-.cta-row { margin-top: 22px; }
+.cta-row { margin-top: 18px; }
+
+.hero-content .search-box {
+  width: 400px; 
+  max-width: 100%; 
+}
 
 /* =========================================
    SECCIÓN DE CATEGORÍAS DE JUEGOS
    ========================================= */
 
 .game-category {
-  margin-bottom: 50px; 
-  padding: 0 var(--space-page-x); /* Usamos tu variable de base.css para consistencia */
+  margin-top: 30px;
+  margin-bottom: 45px; 
+  padding: 0 var(--space-page-x); /* Depende exclusivamente del fondo global oscuro */
 }
 
 .category-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end; 
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .category-header h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.3rem; /* Ligeramente más pequeño para el estilo de Steam */
+  font-weight: 600;
   margin: 0;
   color: var(--text-white); 
 }
@@ -85,13 +85,38 @@
 .category-header a {
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .category-header a:hover {
   color: var(--text-white); 
+}
+
+/* ===============================
+   DISEÑO DE LA TARJETA
+   =============================== */
+
+.card-grid .game-cover {
+  flex: 0 0 calc(25% - 15px); 
+  min-width: 260px; 
+  aspect-ratio: 16 / 9; 
+  height: auto; 
+  border-radius: var(--radius-sm); 
+  background-color: #202833; /* Gris oscuro secundario estilo Steam */
+  overflow: hidden; 
+  scroll-snap-align: start; 
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: none; /* Borde eliminado para limpiar la interfaz */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Sombra estática para separar del fondo */
+}
+
+.card-grid .game-cover:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9);
 }
 
 /* =========================================
@@ -153,4 +178,54 @@
 
 @media (max-width: 560px) {
   .hero-text .logo { font-size: 44px; }
+}
+
+/* Estilos base para las secciones con fondo */
+/* Estilos base para las secciones con fondo de ancho completo */
+/* Estructura base para contener fondos a pantalla completa */
+.game-category {
+  margin: 0; /* Elimina la separación brusca entre secciones */
+  padding: 60px var(--space-page-x); /* El espacio interno respira sobre el fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0; /* Esquinas rectas para ocupar todo el ancho */
+}
+
+/* 
+  Degradados verticales: 
+  - 0% (Arriba): Color base opaco (#171d25)
+  - 50% (Centro): Filtro de color de la plataforma con opacidad (0.80 - 0.85)
+  - 100% (Abajo): Color base opaco (#171d25)
+*/
+
+.bg-trending {
+  background-image: linear-gradient(to bottom, rgba(23, 29, 37, 1) 0%, rgba(43, 18, 69, 0.85) 50%, rgba(23, 29, 37, 1) 100%), url('../assets/fondo-morado-abstracto_698452-2012.avif');
+}
+
+
+.bg-new {
+  /* Tinte muy levemente púrpura en el medio */
+  background-image: linear-gradient(to bottom, rgba(23, 29, 37, 1) 0%, rgba(35, 20, 45, 0.85) 50%, rgba(23, 29, 37, 1) 100%), url('../assets/Pc_games_image.jpeg');
+}
+
+.bg-playstation {
+  /* Tinte azul PlayStation */
+  background-image: linear-gradient(to bottom, rgba(23, 29, 37, 1) 0%, rgba(0, 35, 90, 0.80) 50%, rgba(23, 29, 37, 1) 100%), url('../assets/Ps_games_image.jpeg');
+}
+
+.bg-xbox {
+  /* Tinte verde Xbox */
+  background-image: linear-gradient(to bottom, rgba(23, 29, 37, 1) 0%, rgba(12, 70, 15, 0.80) 50%, rgba(23, 29, 37, 1) 100%), url('../assets/xbox_games_image.jpeg');
+}
+
+.bg-nintendo {
+  /* Tinte rojo Nintendo */
+  background-image: linear-gradient(to bottom, rgba(23, 29, 37, 1) 0%, rgba(110, 10, 15, 0.80) 50%, rgba(23, 29, 37, 1) 100%), url('../assets/ni');
+}
+
+/* Sobrescribir el corte del granulado para que el buscador pueda desplegarse */
+section.hero.noise {
+  overflow: visible;
+  z-index: 100; /* Asegura que el menú quede por encima de la sección Trending Games */
 }

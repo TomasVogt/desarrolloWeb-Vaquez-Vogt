@@ -59,8 +59,13 @@ function gvInitUserMenu(session) {
 }
 
 async function gvInitPage() {
+  // Evita que se ejecute dos veces (doble listener = menú que abre y cierra)
+  if (window.__gvPageInit) return;
+  window.__gvPageInit = true;
+
   const session = await gvGetSession();
 
+  // Protección de rutas privadas
   if (document.body.hasAttribute('data-require-auth')) {
     if (!session) {
       const current = window.location.pathname.split('/').pop() || 'homepage.html';
@@ -68,6 +73,14 @@ async function gvInitPage() {
       return;
     }
     document.body.style.visibility = 'visible';
+  }
+
+  // Botón del hero en la homepage
+  const heroCtaContainer = document.getElementById('heroCtaContainer');
+  if (heroCtaContainer) {
+    heroCtaContainer.innerHTML = session
+      ? '<a href="vault.html" class="btn-primary">Go to My Vault</a>'
+      : '<a href="login.html" class="btn-primary">Create Account</a>';
   }
 
   gvInitUserMenu(session);

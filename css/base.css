@@ -105,10 +105,8 @@ header.topbar {
   justify-content: space-between;
   padding: 10px var(--space-page-x);
   background: linear-gradient(90deg, var(--color-topbar-start) 0%, var(--color-topbar-mid) 55%, var(--color-topbar-end) 100%);
-  /* overflow visible + z-index: para que el menú del avatar no se corte
-     (.noise pone overflow:hidden) y quede por encima del contenido */
   position: relative;
-  z-index: 50;
+  z-index: 200;   
   overflow: visible;
 }
 
@@ -247,4 +245,76 @@ body[data-require-auth] { visibility: hidden; }
 
 @media (max-width: 560px) {
   :root { --space-page-x: 20px; }
+}
+
+/* Menú desplegable de resultados de búsqueda */
+.search-box { 
+  position: relative; /* Obligatorio para anclar el menú absoluto debajo de la caja */
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.search-results.active { 
+  display: flex; 
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--text-white);
+  transition: background 0.15s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: rgba(255, 255, 255, 0.1); }
+
+.search-result-item img {
+  width: 32px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--color-cover);
+}
+
+.search-result-info { 
+  display: flex; 
+  flex-direction: column; 
+  overflow: hidden; 
+}
+
+.search-result-title {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-year { 
+  font-size: 11px; 
+  color: var(--text-muted); 
+}
+
+.search-loading {
+  padding: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
 }

@@ -6,23 +6,26 @@
 <title>My Vault — GameVault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/gamevault_logo_transparente.ico" type="image/x-icon">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/vault.css">
 </head>
-<body data-require-auth>
+<body data-require-auth="true">
 
-<div class="page">
   <header class="topbar noise">
     <a href="homepage.html" class="brand">
       <img src="gamevault_logo_transparent.png" alt="GV">
       <span>GameVault</span>
     </a>
-    <nav class="links">
-      <a href="homepage.html">Home</a>
-      <a href="vault.html">My Vault</a>
-      <a href="#">About</a>
-    </nav>
+    
     <div class="topbar-right">
+      
+      <nav class="links">
+        <a href="homepage.html">Home</a>
+        <a href="vault.html">My Vault</a>
+        <a href="#">About</a>
+      </nav>
+
       <div class="search-box search-box--compact">
         <input type="text" placeholder="Search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -30,39 +33,37 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </div>
+      
       <div class="user-menu" id="userMenu">
         <button type="button" class="nav-avatar" id="userMenuBtn"
-                aria-haspopup="true" aria-expanded="false" aria-label="Menú de usuario">👤</button>
+                aria-haspopup="true" aria-expanded="false" aria-label="Menú de usuario">👤︎</button>
         <div class="user-dropdown" role="menu">
           <a href="#" role="menuitem" id="profileLink">Mi perfil</a>
           <a href="#" role="menuitem" id="logoutBtn">Logout</a>
         </div>
       </div>
+
     </div>
   </header>
 
   <main>
     <div class="vault-header">
       <h1 class="vault-title">My Vault</h1>
-      <a href="#" class="btn-primary">Add Game</a>
+      <a href="homepage.html" class="btn-primary">Add Game</a>
     </div>
 
-    <div class="vault-grid">
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
-      <div class="vault-item"><p class="title-label">Title</p><div class="cover"></div></div>
+    <!-- Se añadió el ID vaultGrid y se eliminaron los ítems estáticos -->
+    <div class="vault-grid" id="vaultGrid">
+      <p style="color: var(--text-muted); grid-column: 1 / -1;">Cargando tu colección...</p>
     </div>
   </main>
-</div>
 
 <script src="js/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
+<!-- Se añadió la importación del script de la vault -->
+<script src="js/vault.js"></script>
+<script src="js/search.js"></script>
 </body>
 </html>

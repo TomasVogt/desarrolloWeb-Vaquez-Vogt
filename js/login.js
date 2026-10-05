@@ -1,5 +1,3 @@
-// js/login.js
-// Un solo formulario con 4 modos: login | register | forgot | reset
 (function () {
   const form = document.getElementById('authForm');
   const titleEl = document.getElementById('authTitle');
@@ -42,7 +40,6 @@
 
   let mode = 'login';
 
-  // ---------- UI ----------
   function setMode(next) {
     mode = next;
     const cfg = MODES[mode];
@@ -52,9 +49,6 @@
     hintEl.classList.toggle('is-hidden', !cfg.hint);
     submitBtn.textContent = cfg.submit;
     passwordEl.setAttribute('autocomplete', cfg.passwordAutocomplete);
-
-    // Mostramos solo los campos del modo actual. Los ocultos se
-    // deshabilitan para que su "required" no bloquee el envío.
     form.querySelectorAll('[data-modes]').forEach((el) => {
       const visible = el.dataset.modes.split(' ').includes(mode);
       el.classList.toggle('is-hidden', !visible);
@@ -82,10 +76,9 @@
     submitBtn.textContent = loading ? 'Un momento…' : MODES[mode].submit;
   }
 
-  // ---------- Diagnóstico ----------
   let projectSettings = null;
 
-  // Devuelve un mensaje si falta algo para poder usar Supabase, o null.
+
   function setupProblem() {
     if (window.gvStatus && window.gvStatus.placeholders) {
       return 'Falta configurar Supabase: completá js/config.js con la URL y la clave pública de tu proyecto.';
@@ -97,8 +90,7 @@
     return null;
   }
 
-  // Le pregunta a Supabase su configuración pública. Sirve para
-  // detectar URL mal pegada, clave inválida o sin internet.
+
   async function checkConnection() {
     const cfg = window.GAMEVAULT_CONFIG;
     const base = cfg.SUPABASE_URL.trim().replace(/\/+$/, '');
@@ -120,7 +112,6 @@
     }
   }
 
-  // ---------- Errores ----------
   function translateError(err) {
     const code = err.code || '';
     const msg = (err.message || '').toLowerCase();
@@ -149,14 +140,12 @@
     return 'Ocurrió un error inesperado. Intentá de nuevo.';
   }
 
-  // ---------- Navegación post-login ----------
   function redirectAfterAuth() {
   const params = new URLSearchParams(window.location.search);
   const next = gvSafeNext(params.get('next'));
   window.location.replace(next || 'homepage.html');
 }
 
-  // ---------- Acciones ----------
   async function handleSubmit(event) {
     event.preventDefault();
     clearMessage();
@@ -206,9 +195,8 @@
         });
         if (error) throw error;
         if (data.session) {
-          redirectAfterAuth(); // el proyecto no exige confirmar el correo
+          redirectAfterAuth(); 
         } else {
-          // Mensaje deliberadamente genérico: no revela si el correo ya existía.
           showSuccess('Listo. Si el correo es válido, te enviamos un enlace para confirmar tu cuenta.');
         }
         return;
@@ -235,11 +223,9 @@
     }
   }
 
-  // ---------- Inicio ----------
   async function init() {
     form.addEventListener('submit', handleSubmit);
 
-    // Links internos que cambian de modo (Creá una / Iniciá sesión / Olvidaste…)
     document.addEventListener('click', (e) => {
       const target = e.target.closest('[data-goto]');
       if (!target) return;
@@ -263,14 +249,12 @@
 
     const hash = window.location.hash;
 
-    // Enlace de recuperación vencido o inválido
     if (hash.includes('error_code=')) {
       showError('El enlace expiró o ya fue usado. Pedí uno nuevo desde "¿Olvidaste tu contraseña?".');
       history.replaceState(null, '', window.location.pathname + window.location.search);
       return;
     }
 
-    // Llegó desde el enlace del correo de recuperación
     window.gvSupabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') setMode('reset');
     });
@@ -279,7 +263,6 @@
       return;
     }
 
-    // Si ya hay sesión, no tiene sentido mostrar el login
     const session = await gvGetSession();
     if (session) {
       redirectAfterAuth();

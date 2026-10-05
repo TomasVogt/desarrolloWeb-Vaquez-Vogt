@@ -1,7 +1,3 @@
-/* =========================================================
-   Login — depende de css/base.css
-   ========================================================= */
-
 body {
   min-height: 100vh;
   display: flex;
@@ -12,7 +8,6 @@ body {
   background: var(--color-bg);
 }
 
-/* Fondo con degradé */
 body::before {
   content: "";
   position: absolute;
@@ -23,7 +18,6 @@ body::before {
   filter: blur(2px);
 }
 
-/* Grano */
 body::after {
   content: "";
   position: absolute;
@@ -133,7 +127,6 @@ form {
 .signup-hint a { color: var(--text-white); font-weight: 500; text-decoration: none; }
 .signup-hint a:hover { text-decoration: underline; }
 
-/* ---------- Mensajes y estados ---------- */
 .is-hidden { display: none !important; }
 
 .form-message {

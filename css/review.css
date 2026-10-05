@@ -1,16 +1,11 @@
-/* =========================================================
-   Review — depende de css/base.css
-   ========================================================= */
-
-/* ---------- Banner ---------- */
 .banner {
   position: relative;
   width: 100%;
-  height: 480px; /* Altura generosa para el arte principal, similar al Figma */
+  height: 480px; 
   background-color: var(--color-bg); 
 }
 
-/* Este pseudo-elemento crea el degradado oscuro sobre la imagen para fundirla con el fondo */
+
 .banner::after {
   content: '';
   position: absolute;
@@ -19,13 +14,13 @@
   pointer-events: none;
 }
 
-/* ---------- Layout principal ---------- */
+
 .content {
   display: grid;
-  grid-template-columns: 280px 1fr 320px; /* Diseño de Figma: Izquierda, Centro, Derecha */
+  grid-template-columns: 280px 1fr 320px; 
   gap: 50px;
-  padding: 0 var(--space-page-x) 60px; /* Usa el espaciado definido en tu base.css */
-  margin-top: -200px; /* Superpone el contenido al banner elevándolo 200px */
+  padding: 0 var(--space-page-x) 60px; 
+  margin-top: -200px; 
   position: relative;
   z-index: 10;
 }
@@ -35,7 +30,7 @@
   aspect-ratio: 3 / 4;
   background: var(--color-cover);
   border-radius: var(--radius-lg);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* Sombra intensa para que flote sobre el fondo */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); 
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 24px;
 }
@@ -59,9 +54,9 @@
 
 .platform-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-pink); }
 
-/* ---------- Columna Central ---------- */
+
 .main-col {
-  padding-top: 40px; /* Alinea el título con la parte superior/media de la carátula */
+  padding-top: 40px;
 }
 
 .game-title { 
@@ -69,7 +64,7 @@
   font-weight: 800; 
   line-height: 1.1;
   margin-bottom: 5px;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Legibilidad sobre el banner */
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5); 
 }
 
 .game-year { 
@@ -109,7 +104,6 @@
 
 .review-text { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); }
 
-/* ---------- Sidebar ---------- */
 .sidebar { 
   padding-top: 40px; 
 }
@@ -142,7 +136,6 @@
 
 .bar-fill { height: 100%; background: var(--color-pink); border-radius: 3px; }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .content { grid-template-columns: 240px 1fr; }
   .sidebar { 
@@ -161,10 +154,6 @@
   .description { text-align: left; }
   .sidebar { flex-direction: column; gap: 15px; }
 }
-
-/* =========================================
-   Estilos para el Formulario y Reseñas de la Comunidad
-   ========================================= */
 
 #reviewFormContainer {
   background: var(--color-surface);
@@ -189,7 +178,6 @@
   margin-bottom: 6px;
 }
 
-/* Campos de entrada personalizados adaptados a la paleta */
 #reviewFormContainer .field,
 #reviewFormContainer select,
 #reviewFormContainer textarea {
@@ -222,7 +210,6 @@
   box-shadow: 0 0 0 2px rgba(239, 45, 99, 0.25);
 }
 
-/* Botón de envío específico para la reseña */
 #sendReviewBtn {
   margin-top: 4px;
   width: 100%;

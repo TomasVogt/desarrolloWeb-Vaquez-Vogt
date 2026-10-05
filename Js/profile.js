@@ -1,19 +1,14 @@
-// js/profile.js
-// Requiere: config.js, supabase-js, supabase-client.js y auth.js cargados antes.
-
 const PROFILE_API_KEY = 'a3ce13daa9974764926de77336692c0b';
 const MAX_FEATURED = 4;
 
 let vaultGames = [];
 let currentUserId = null;
 
-// ---------- Utilidades ----------
 function placeholderImage(game) {
   return game.background_image || 'assets/placeholder.jpg';
 }
 
 function setBackground(el, url) {
-  // Se usa JSON.stringify para escapar comillas dentro de la URL
   el.style.backgroundImage = `url(${JSON.stringify(url)})`;
 }
 
@@ -28,7 +23,6 @@ function renderHeader(user) {
   document.title = `${username} — GameVault`;
 }
 
-// ---------- Expositor ----------
 function renderShowcase() {
   const showcase = document.getElementById('showcase');
   showcase.replaceChildren();
@@ -59,7 +53,6 @@ function renderShowcase() {
   });
 }
 
-// ---------- Selector de destacados ----------
 function renderPicker() {
   const grid = document.getElementById('pickerGrid');
   grid.replaceChildren();
@@ -187,7 +180,6 @@ async function loadMyReviews() {
     return;
   }
 
-  // Los nombres de los juegos de la Vault ya los tenemos; el resto se pide a RAWG
   const cache = new Map(vaultGames.map((g) => [g.game_id, g.game_name]));
   const missing = [...new Set(data.map((r) => r.game_id))].filter((id) => !cache.has(id));
   await Promise.all(missing.map((id) => getGameName(id, cache)));
@@ -197,10 +189,9 @@ async function loadMyReviews() {
   });
 }
 
-// ---------- Inicio ----------
 async function initProfile() {
   const session = await window.gvGetSession();
-  if (!session) return; // auth.js redirige al login
+  if (!session) return; 
 
   currentUserId = session.user.id;
   renderHeader(session.user);

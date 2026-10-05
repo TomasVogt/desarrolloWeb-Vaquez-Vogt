@@ -2,7 +2,6 @@ const API_KEY = 'a3ce13daa9974764926de77336692c0b';
 const BASE_URL = 'https://api.rawg.io/api/games';
 
 async function loadGameCategory(endpointParams, gridId) {
-    // Volvemos a pedir solo 15 juegos porque el filtro ahora es directo y exacto
     const url = `${BASE_URL}?key=${API_KEY}&page_size=15&${endpointParams}`;
     const grid = document.getElementById(gridId);
 
@@ -69,11 +68,8 @@ function getRecentDatesRange() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Categorías Generales
     loadGameCategory('ordering=-added', 'trending-grid');
     loadGameCategory(`dates=${getRecentDatesRange()}&ordering=-released`, 'new-releases-grid');
-
-    // Categorías Exclusivas (Filtradas por los identificadores oficiales de las empresas matrices)
     loadGameCategory('publishers=sony-computer-entertainment,playstation-studios&ordering=-added', 'playstation-grid');
     loadGameCategory('publishers=microsoft-studios,xbox-game-studios&ordering=-added', 'xbox-grid');
     loadGameCategory('publishers=nintendo&ordering=-added', 'nintendo-grid');

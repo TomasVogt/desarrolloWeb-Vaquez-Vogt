@@ -1,5 +1,3 @@
-// js/supabase-client.js
-// Requiere cargar antes: js/config.js y el CDN de supabase-js.
 (function () {
   const cfg = window.GAMEVAULT_CONFIG || {};
   const REMEMBER_KEY = 'gv:remember';
@@ -11,9 +9,6 @@
       cfg.SUPABASE_ANON_KEY !== 'TU_CLAVE_PUBLICA'
   );
 
-  // "Recordarme": si está tildado la sesión se guarda en localStorage
-  // (sobrevive al cerrar el navegador); si no, en sessionStorage
-  // (se pierde al cerrar la pestaña). El flag se guarda en el login.
   function remembered() {
     return localStorage.getItem(REMEMBER_KEY) !== 'false';
   }
@@ -27,7 +22,7 @@
         ? [localStorage, sessionStorage]
         : [sessionStorage, localStorage];
       use.setItem(key, value);
-      other.removeItem(key); // evita que quede una sesión vieja en el otro storage
+      other.removeItem(key); 
     },
     removeItem(key) {
       localStorage.removeItem(key);
@@ -37,10 +32,10 @@
 
   window.GV_REMEMBER_KEY = REMEMBER_KEY;
 
-  // Estado para diagnosticar (lo usa login.js para mostrar mensajes claros)
+
   window.gvStatus = {
-    placeholders: !window.gvIsConfigured, // config.js sin completar
-    libLoaded: Boolean(window.supabase), // ¿cargó el CDN de supabase-js?
+    placeholders: !window.gvIsConfigured, 
+    libLoaded: Boolean(window.supabase), 
   };
 
   if (window.gvIsConfigured && window.supabase) {

@@ -1,7 +1,3 @@
-/* =========================================================
-   Perfil — depende de css/base.css
-   ========================================================= */
-
 .profile {
   max-width: 1100px;
   margin: 0 auto;
@@ -94,7 +90,6 @@
   padding: 28px 28px 0;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.07));
   border-radius: var(--radius-lg);
-  /* la "repisa" */
   border-bottom: 10px solid #3b1a5e;
   box-shadow: 0 10px 0 -4px rgba(0, 0, 0, 0.35);
 }
@@ -127,7 +122,6 @@
 
 .showcase .empty-msg { padding-bottom: 28px; }
 
-/* ---------- Selector de destacados ---------- */
 .picker {
   margin-top: 22px;
   background: var(--color-surface);

@@ -20,7 +20,7 @@
       <span>GameVault</span>
     </a>
 
-    <!-- Todo lo que va a la derecha se agrupa aquí -->
+    
     <div class="topbar-right">
 
       <nav class="links">
@@ -29,7 +29,7 @@
         <a href="about.html">About</a>
       </nav>
 
-      <!-- La barra de búsqueda se mantiene aquí, usando la variante compacta -->
+      
       <div class="search-box search-box--compact">
         <input type="text" placeholder="Search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -50,17 +50,15 @@
     </div>
   </header>
 
-  <!-- Banner para la imagen principal (background_image de RAWG) -->
   <div class="banner noise" id="game-banner"></div>
 
   <div class="content">
     <div class="left-col">
-      <!-- Carátula (usaremos una imagen adicional si existe, o la misma principal) -->
+      
       <div class="cover" id="game-cover"></div>
 
       <div class="platform-list">
         <h3>¿Dónde jugar?</h3>
-        <!-- Las plataformas se inyectarán aquí -->
         <div id="game-platforms"></div>
       </div>
     </div>
@@ -69,7 +67,6 @@
     <div class="main-col">
       <h1 class="game-title" id="game-title">Cargando...</h1>
       <p class="game-year" id="game-year">-</p>
-      <!-- RAWG devuelve HTML en la descripción, así que lo inyectaremos directamente -->
       <div class="description" id="game-description">
         Obteniendo información del servidor...
       </div>
@@ -98,7 +95,6 @@
           </form>
         </div>
 
-        <!-- Acá se renderizan las reseñas -->
         <div id="reviewsList"></div>
       </div>
     </div>
@@ -143,7 +139,6 @@
     </div>
   </div>
 
-  <!-- Conectamos el script específico para la página de reviews -->
   <script src="js/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-client.js"></script>

@@ -23,14 +23,12 @@ async function loadGameDetails() {
         
         const game = await response.json();
 
-        // Actualizar Textos y Metadatos
         document.getElementById('page-title').textContent = `${game.name} — GameVault`;
         document.getElementById('game-title').textContent = game.name;
         document.getElementById('game-year').textContent = game.released ? game.released.substring(0, 4) : 'Fecha desconocida';
         
         document.getElementById('game-description').innerHTML = game.description || 'No hay descripción disponible para este título.';
 
-        // Actualizar Imágenes
         if (game.background_image) {
             const banner = document.getElementById('game-banner');
             banner.style.backgroundImage = `url('${game.background_image}')`;
@@ -85,7 +83,6 @@ async function loadGameDetails() {
             const session = await window.gvGetSession();
             
             if (session) {
-                // 1. Verificar si el juego ya existe en la base de datos para este usuario
                 const { data: existingGame } = await window.gvSupabase
                     .from('vault_games')
                     .select('id')
@@ -95,11 +92,10 @@ async function loadGameDetails() {
 
                 let inVault = !!existingGame;
 
-                // 2. Función para actualizar el estado visual y funcional del botón
                 const updateButtonState = () => {
                     if (inVault) {
                         btnAddVault.textContent = 'Remove from Vault';
-                        btnAddVault.style.backgroundColor = '#4a1f7d'; // Color oscuro para diferenciar
+                        btnAddVault.style.backgroundColor = '#4a1f7d'; 
                         btnAddVault.onclick = async () => {
                             btnAddVault.disabled = true;
                             await removeFromVault(game.id, session.user.id);
@@ -109,7 +105,7 @@ async function loadGameDetails() {
                         };
                     } else {
                         btnAddVault.textContent = 'Add to Vault';
-                        btnAddVault.style.backgroundColor = ''; // Restaura color original
+                        btnAddVault.style.backgroundColor = ''; 
                         btnAddVault.onclick = async () => {
                             btnAddVault.disabled = true;
                             await addToVault(game, session.user.id);
@@ -136,7 +132,6 @@ async function loadGameDetails() {
     }
 }
 
-// Funciones de inserción y borrado
 async function addToVault(gameData, userId) {
     const { error } = await window.gvSupabase.from('vault_games').insert([{
         user_id: userId,
@@ -181,7 +176,7 @@ function renderReview(review) {
 
   const user = document.createElement('span');
   user.className = 'review-user';
-  user.textContent = review.username;            // textContent: no interpreta HTML
+  user.textContent = review.username;            
 
   const rating = Math.min(5, Math.max(0, Math.round(Number(review.rating) || 0)));
   const stars = document.createElement('span');
@@ -205,7 +200,6 @@ async function loadGameReviews(gameId) {
 
   if (formContainer) formContainer.style.display = session ? 'block' : 'none';
 
-  // 1. Reseñas de la comunidad (Supabase)
   const { data: dbReviews, error: dbError } = await window.gvSupabase
     .from('game_reviews')
     .select('*')
@@ -214,7 +208,6 @@ async function loadGameReviews(gameId) {
 
   if (dbError) console.error('Error leyendo reseñas:', dbError);
 
-  // 2. Reseñas de RAWG (respaldo)
   let rawgReviews = [];
   try {
     const response = await fetch(`https://api.rawg.io/api/games/${gameId}/reviews?key=${API_KEY}`);
@@ -244,7 +237,7 @@ async function loadGameReviews(gameId) {
     ...rawgReviews
   ];
 
-  list.replaceChildren();   // solo se vacía la lista, el formulario no se toca
+  list.replaceChildren();  
 
   if (combined.length === 0) {
     const empty = document.createElement('div');
@@ -257,8 +250,6 @@ async function loadGameReviews(gameId) {
   combined.forEach(r => list.appendChild(renderReview(r)));
 }
 
-// Manejar el envío del formulario de reseñas
-// Manejar el envío del formulario de reseñas
 document.addEventListener('DOMContentLoaded', () => {
     const submitForm = document.getElementById('submitReviewForm');
     if (submitForm) {
@@ -296,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.textContent = 'Publicando...';
 
             try {
-                // Inserción directa en la base de datos de Supabase
                 const { error } = await window.gvSupabase
                     .from('game_reviews')
                     .insert([{
@@ -312,7 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(`No se pudo guardar la reseña: ${error.message}`);
                 } else {
                     commentInput.value = '';
-                    // Recarga las reseñas sin alterar la URL actual
                     await loadGameReviews(gameId);
                 }
             } catch (err) {

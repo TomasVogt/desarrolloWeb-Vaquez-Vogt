@@ -1,7 +1,3 @@
-/* =========================================================
-   Vault (Almacén) — depende de css/base.css
-   ========================================================= */
-
 body {
   --hero-image: url('../assets/');
   background-color: var(--color-bg);
@@ -49,13 +45,12 @@ main { padding: 32px var(--space-page-x) 60px; }
   .vault-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Posicionamiento relativo para contener la barra absoluta */
 .vault-item .cover {
   position: relative;
   overflow: hidden;
 }
 
-/* Barra emergente */
+
 .remove-bar {
   position: absolute;
   bottom: 0;
@@ -77,7 +72,6 @@ main { padding: 32px var(--space-page-x) 60px; }
   transform: translateY(0);
 }
 
-/* Botón circular con la cruz */
 .remove-btn {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.6);

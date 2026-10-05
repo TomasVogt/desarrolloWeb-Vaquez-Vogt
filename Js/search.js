@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const input = box.querySelector('input');
         if (!input) return;
 
-        // Contenedor dinámico inyectado por JS
         const resultsContainer = document.createElement('div');
         resultsContainer.className = 'search-results';
         box.appendChild(resultsContainer);
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         input.addEventListener('input', (e) => {
             const query = e.target.value.trim();
-            clearTimeout(timeoutId); // Resetea el temporizador si el usuario sigue tipeando
+            clearTimeout(timeoutId); 
 
             if (query.length < 3) {
                 resultsContainer.classList.remove('active');
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsContainer.classList.add('active');
             resultsContainer.innerHTML = '<div class="search-loading">Buscando...</div>';
 
-            // Retraso lógico (debounce) para no saturar las cuotas de la API
             timeoutId = setTimeout(async () => {
                 try {
                     const response = await fetch(`https://api.rawg.io/api/games?search=${encodeURIComponent(query)}&key=${SEARCH_API_KEY}&page_size=5`);
@@ -65,14 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 150);
         });
 
-        // Ocultar la caja si el usuario hace clic fuera del buscador
         document.addEventListener('click', (e) => {
             if (!box.contains(e.target)) {
                 resultsContainer.classList.remove('active');
             }
         });
 
-        // Desplegar de nuevo al hacer foco si el input ya contiene texto válido
         input.addEventListener('focus', () => {
             if (input.value.trim().length >= 3) {
                 resultsContainer.classList.add('active');
